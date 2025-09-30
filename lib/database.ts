@@ -1,5 +1,4 @@
 import sql from 'mssql';
-import { ConfidentialClientApplication } from '@azure/msal-node';
 
 interface DatabaseConfig {
   server: string;
@@ -17,7 +16,6 @@ interface DatabaseConfig {
 class DatabaseConnection {
   private static instance: DatabaseConnection;
   private config: DatabaseConfig;
-  private msalInstance: ConfidentialClientApplication;
 
   private constructor() {
     this.config = {
@@ -33,13 +31,6 @@ class DatabaseConnection {
       },
     };
 
-    this.msalInstance = new ConfidentialClientApplication({
-      auth: {
-        clientId: this.config.authentication.options.clientId,
-        clientSecret: this.config.authentication.options.clientSecret,
-        authority: `https://login.microsoftonline.com/${this.config.authentication.options.tenantId}`,
-      },
-    });
   }
 
   public static getInstance(): DatabaseConnection {
@@ -51,24 +42,15 @@ class DatabaseConnection {
 
   public async getConnection(): Promise<sql.ConnectionPool> {
     try {
-      // Get access token for SQL Server
-      const accounts = this.msalInstance.getAllAccounts();
-      if (accounts.length === 0) {
-        throw new Error('No accounts found. Please ensure you are logged in.');
-      }
-
-      const tokenResponse = await this.msalInstance.acquireTokenSilent({
-        scopes: ['https://database.windows.net/.default'],
-        account: accounts[0],
-      });
-
       const config: sql.config = {
         server: this.config.server,
         database: this.config.database,
         authentication: {
-          type: 'azure-active-directory-access-token',
+          type: 'azure-active-directory-service-principal-secret',
           options: {
-            token: tokenResponse.accessToken,
+            clientId: this.config.authentication.options.clientId,
+            clientSecret: this.config.authentication.options.clientSecret,
+            tenantId: this.config.authentication.options.tenantId,
           },
         },
         options: {

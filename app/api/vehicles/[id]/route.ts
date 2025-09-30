@@ -20,9 +20,8 @@ export async function GET(
 
     pool = await db.getConnection();
     
-    const result = await pool.request()
-      .input('id', id)
-      .query(`
+    const dbRequest = pool.request().input('id', id);
+    const result = await dbRequest.query(`
         SELECT 
           Id, Make, Model, Year, VIN, OwnerName, OwnerEmail, OwnerPhone,
           Location, EventType, EventDate, EventDescription, Mileage,
@@ -218,9 +217,8 @@ export async function DELETE(
 
     pool = await db.getConnection();
     
-    const result = await pool.request()
-      .input('id', id)
-      .query('DELETE FROM Vehicles WHERE Id = @id');
+    const dbRequest = pool.request().input('id', id);
+    const result = await dbRequest.query('DELETE FROM Vehicles WHERE Id = @id');
 
     if (result.rowsAffected[0] === 0) {
       return NextResponse.json(
