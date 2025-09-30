@@ -5,7 +5,7 @@ import './globals.css'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: 'Vehicle Management System',
+  title: 'Vehicle Management System - layout',
   description: 'A secure vehicle management application with Azure SQL Server integration',
 }
 
