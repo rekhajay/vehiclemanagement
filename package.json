@@ -1,0 +1,30 @@
+{
+  "name": "vehicle-app",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@azure/msal-node": "^2.5.1",
+    "axios": "^1.6.2",
+    "dotenv": "^17.2.3",
+    "lucide-react": "^0.294.0",
+    "mssql": "^10.0.1",
+    "next": "14.0.4",
+    "react": "^18",
+    "react-dom": "^18"
+  },
+  "devDependencies": {
+    "@types/mssql": "^9.1.4",
+    "@types/node": "^20",
+    "@types/react": "^18",
+    "@types/react-dom": "^18",
+    "eslint": "^8",
+    "eslint-config-next": "14.0.4",
+    "typescript": "^5"
+  }
+}
