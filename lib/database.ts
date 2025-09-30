@@ -52,9 +52,14 @@ class DatabaseConnection {
   public async getConnection(): Promise<sql.ConnectionPool> {
     try {
       // Get access token for SQL Server
+      const accounts = this.msalInstance.getAllAccounts();
+      if (accounts.length === 0) {
+        throw new Error('No accounts found. Please ensure you are logged in.');
+      }
+
       const tokenResponse = await this.msalInstance.acquireTokenSilent({
         scopes: ['https://database.windows.net/.default'],
-        account: null,
+        account: accounts[0],
       });
 
       const config: sql.config = {

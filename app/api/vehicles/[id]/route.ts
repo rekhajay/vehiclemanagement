@@ -91,55 +91,55 @@ export async function PUT(
     
     // Build dynamic update query based on provided fields
     const updateFields = [];
-    const request = pool.request().input('id', id);
+    const dbRequest = pool.request().input('id', id);
 
     if (body.make !== undefined) {
       updateFields.push('Make = @make');
-      request.input('make', body.make);
+      dbRequest.input('make', body.make);
     }
     if (body.model !== undefined) {
       updateFields.push('Model = @model');
-      request.input('model', body.model);
+      dbRequest.input('model', body.model);
     }
     if (body.year !== undefined) {
       updateFields.push('Year = @year');
-      request.input('year', body.year);
+      dbRequest.input('year', body.year);
     }
     if (body.vin !== undefined) {
       updateFields.push('VIN = @vin');
-      request.input('vin', body.vin);
+      dbRequest.input('vin', body.vin);
     }
     if (body.ownerName !== undefined) {
       updateFields.push('OwnerName = @ownerName');
-      request.input('ownerName', body.ownerName);
+      dbRequest.input('ownerName', body.ownerName);
     }
     if (body.ownerEmail !== undefined) {
       updateFields.push('OwnerEmail = @ownerEmail');
-      request.input('ownerEmail', body.ownerEmail);
+      dbRequest.input('ownerEmail', body.ownerEmail);
     }
     if (body.ownerPhone !== undefined) {
       updateFields.push('OwnerPhone = @ownerPhone');
-      request.input('ownerPhone', body.ownerPhone);
+      dbRequest.input('ownerPhone', body.ownerPhone);
     }
     if (body.location !== undefined) {
       updateFields.push('Location = @location');
-      request.input('location', body.location);
+      dbRequest.input('location', body.location);
     }
     if (body.eventType !== undefined) {
       updateFields.push('EventType = @eventType');
-      request.input('eventType', body.eventType);
+      dbRequest.input('eventType', body.eventType);
     }
     if (body.eventDate !== undefined) {
       updateFields.push('EventDate = @eventDate');
-      request.input('eventDate', new Date(body.eventDate));
+      dbRequest.input('eventDate', new Date(body.eventDate));
     }
     if (body.eventDescription !== undefined) {
       updateFields.push('EventDescription = @eventDescription');
-      request.input('eventDescription', body.eventDescription);
+      dbRequest.input('eventDescription', body.eventDescription);
     }
     if (body.mileage !== undefined) {
       updateFields.push('Mileage = @mileage');
-      request.input('mileage', body.mileage);
+      dbRequest.input('mileage', body.mileage);
     }
 
     if (updateFields.length === 0) {
@@ -151,7 +151,7 @@ export async function PUT(
 
     updateFields.push('UpdatedAt = GETUTCDATE()');
 
-    const result = await request.query(`
+    const result = await dbRequest.query(`
       UPDATE Vehicles 
       SET ${updateFields.join(', ')}
       OUTPUT INSERTED.Id, INSERTED.Make, INSERTED.Model, INSERTED.Year, INSERTED.VIN,
