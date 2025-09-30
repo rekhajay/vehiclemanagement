@@ -26,9 +26,9 @@ jobs:
           npm run build --if-present
           npm run test --if-present
         env:
-          AZURE_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
-          AZURE_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
-          AZURE_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
+          AZURE_CLIENT_ID: ${{ secrets.AZUREAPPSERVICE_CLIENTID_6FA086BC078B48C5BDC3417DDA72DE92 }}
+          AZURE_CLIENT_SECRET: ${{ secrets.AZUREAPPSERVICE_CLIENTSECRET }}
+          AZURE_TENANT_ID: ${{ secrets.AZUREAPPSERVICE_TENANTID_85A5DFB301734CF28C41AC96FD3B2F4A }}
           SQL_SERVER: ${{ secrets.SQL_SERVER }}
           SQL_DATABASE: ${{ secrets.SQL_DATABASE }}
       
