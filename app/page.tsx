@@ -126,7 +126,7 @@ export default function Home() {
     <div className="container">
       <div className="card">
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem' }}>
-          <h1>Vehicle Management System - Mod2</h1>
+          <h1>Vehicle Management System - Mod3</h1>
           <button 
             className="btn btn-primary"
             onClick={() => setShowForm(true)}
